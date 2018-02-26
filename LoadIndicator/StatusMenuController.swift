@@ -11,15 +11,15 @@ import AppKit
 
 class StatusMenuController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
-    @IBOutlet weak var weatherView: WeatherView!
+    @IBOutlet weak var weatherView: ImageMenuItemView!
     
     var weatherMenuItem: NSMenuItem!
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    let weatherAPI = WeatherAPI()
+    let piIcon = NSImage(named: NSImage.Name("piLogo"))
     
     var timer : Timer?
-    var loadPrevious : host_cpu_load_info?
+    var loadPrevious = host_cpu_load_info()
     var loadStack : [Double] = []
     
     deinit {
@@ -32,18 +32,15 @@ class StatusMenuController: NSObject {
         
         let icon = NSImage(named: NSImage.Name(rawValue: "piLogo"))
         icon?.isTemplate = false
-        //statusItem.image = icon
-        
-        // updating the weather
-        //self.weatherAPI.fetchWeather("Seattle")
         
         weatherView.imageView.image = NSImage(named: NSImage.Name("AppIcon"))
         
-        weatherMenuItem = statusMenu.item(withTitle: "Weather")
+        weatherMenuItem = statusMenu.item(withTitle: "CPU")
         if weatherMenuItem != nil {
             weatherMenuItem.view = weatherView
         }
         
+        loadPrevious = hostCPULoadInfo()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
@@ -55,16 +52,15 @@ class StatusMenuController: NSObject {
         if self.loadStack.count > 100 {
             self.loadStack.remove(at: 100)
         }
-        createBlankGraph()
+        createGraphImage()
         
-        weatherView.cityLabel.stringValue = "Current load: \(usage)";
+        weatherView.cityLabel.stringValue = "Current load: \(usage)"
     }
     
-    func createBlankGraph() {
+    func createGraphImage() {
         let graphHeight : CGFloat = 22
         let graphWidth : CGFloat = 80
         
-        let piIcon = NSImage(named: NSImage.Name("piLogo"));
         let graph = NSImage(size: NSSize(width: graphWidth, height: graphHeight))
         graph.lockFocus()
         
@@ -79,10 +75,11 @@ class StatusMenuController: NSObject {
             }
             
             let height = 22 / 100 * loadStack[i];
-            NSLog("Drawing height: \(height)");
+            //NSLog("Drawing height: \(height)");
             NSMakeRect(CGFloat(80 - i - 1), 0, CGFloat(1), CGFloat(height)).fill()
         }
         
+        NSColor.white.setStroke()
         if ( loadStack.count > 0 ) {
             let percent = NSString(format: "%.0f%%", loadStack[0])
             let textRect = NSRect(x: 18, y: 0, width: CGFloat(80-18), height: 22)
@@ -96,8 +93,7 @@ class StatusMenuController: NSObject {
         self.statusItem.image = graph
     }
     
-    func hostCPULoadInfo() -> host_cpu_load_info? {
-        
+    func hostCPULoadInfo() -> host_cpu_load_info {
         let  HOST_CPU_LOAD_INFO_COUNT = MemoryLayout<host_cpu_load_info>.stride / MemoryLayout<integer_t>.stride
         
         var size = mach_msg_type_number_t(HOST_CPU_LOAD_INFO_COUNT)
@@ -109,7 +105,7 @@ class StatusMenuController: NSObject {
         
         if result != KERN_SUCCESS{
             print("Error  - \(#file): \(#function) - kern_result_t = \(result)")
-            return nil
+            return host_cpu_load_info()
         }
         let data = hostInfo.move()
         hostInfo.deallocate(capacity: 1)
@@ -117,27 +113,23 @@ class StatusMenuController: NSObject {
     }
     
     public func cpuUsage() -> (system: Double, user: Double, idle : Double, nice: Double){
-        let load = hostCPULoadInfo();
+        let load = hostCPULoadInfo()
         
-        if loadPrevious == nil {
-            loadPrevious = load!
-            return (0,0,0,0)
-        }
-        
-        let usrDiff: Double = Double((load?.cpu_ticks.0)! - loadPrevious!.cpu_ticks.0);
-        let systDiff = Double((load?.cpu_ticks.1)! - loadPrevious!.cpu_ticks.1);
-        let idleDiff = Double((load?.cpu_ticks.2)! - loadPrevious!.cpu_ticks.2);
-        let niceDiff = Double((load?.cpu_ticks.3)! - loadPrevious!.cpu_ticks.3);
+        let usrDiff = Double(load.cpu_ticks.0 - loadPrevious.cpu_ticks.0)
+        let systDiff = Double(load.cpu_ticks.1 - loadPrevious.cpu_ticks.1)
+        let idleDiff = Double(load.cpu_ticks.2 - loadPrevious.cpu_ticks.2)
+        let niceDiff = Double(load.cpu_ticks.3 - loadPrevious.cpu_ticks.3)
         
         let totalTicks = usrDiff + systDiff + idleDiff + niceDiff
-        //NSLog("Total ticks is \(totalTicks)");
+        //NSLog("Total ticks is \(totalTicks)")
         let sys = systDiff / totalTicks * 100.0
         let usr = usrDiff / totalTicks * 100.0
         let idle = idleDiff / totalTicks * 100.0
         let nice = niceDiff / totalTicks * 100.0
         
         //NSLog("CPU Load: \(usr)+\(sys)+\(idle)")
-        return (sys, usr, idle, nice);
+        loadPrevious = load
+        return (sys, usr, idle, nice)
     }
     
     @IBAction func quitClicked(_ sender: NSMenuItem) {
@@ -145,11 +137,7 @@ class StatusMenuController: NSObject {
     }
     
     @IBAction func updateClicked(_ sender: Any) {
-        // TODO: valamit ezzel kezdeni :)
-//        if let weatherMenuItem = self.statusMenu.item(withTitle: "Weather") {
-//            //weatherMenuItem.title = weather.description
-//            NSLog("Ideertunk")
-//        }
-//        weatherAPI.fetchWeather("Seattle")
+        NSLog("Manual update called")
+        update()
     }
 }

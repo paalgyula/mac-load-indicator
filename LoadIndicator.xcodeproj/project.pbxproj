@@ -11,8 +11,7 @@
 		87BFC827204409D000A8D167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BFC826204409D000A8D167 /* Assets.xcassets */; };
 		87BFC82A204409D000A8D167 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87BFC828204409D000A8D167 /* MainMenu.xib */; };
 		87BFC83320440FDD00A8D167 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC83220440FDD00A8D167 /* StatusMenuController.swift */; };
-		87BFC83520441CB500A8D167 /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC83420441CB500A8D167 /* WeatherAPI.swift */; };
-		87BFC83920441FD200A8D167 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC83820441FD200A8D167 /* WeatherView.swift */; };
+		87BFC83920441FD200A8D167 /* ImageMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC83820441FD200A8D167 /* ImageMenuItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,8 +22,7 @@
 		87BFC82B204409D000A8D167 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87BFC82C204409D000A8D167 /* LoadIndicator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LoadIndicator.entitlements; sourceTree = "<group>"; };
 		87BFC83220440FDD00A8D167 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
-		87BFC83420441CB500A8D167 /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
-		87BFC83820441FD200A8D167 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		87BFC83820441FD200A8D167 /* ImageMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuItemView.swift; sourceTree = "<group>"; };
 		87BFC83B2044554C00A8D167 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,10 +57,9 @@
 		87BFC823204409CF00A8D167 /* LoadIndicator */ = {
 			isa = PBXGroup;
 			children = (
-				87BFC83820441FD200A8D167 /* WeatherView.swift */,
+				87BFC83820441FD200A8D167 /* ImageMenuItemView.swift */,
 				87BFC824204409CF00A8D167 /* AppDelegate.swift */,
 				87BFC826204409D000A8D167 /* Assets.xcassets */,
-				87BFC83420441CB500A8D167 /* WeatherAPI.swift */,
 				87BFC828204409D000A8D167 /* MainMenu.xib */,
 				87BFC82B204409D000A8D167 /* Info.plist */,
 				87BFC82C204409D000A8D167 /* LoadIndicator.entitlements */,
@@ -142,8 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87BFC83920441FD200A8D167 /* WeatherView.swift in Sources */,
-				87BFC83520441CB500A8D167 /* WeatherAPI.swift in Sources */,
+				87BFC83920441FD200A8D167 /* ImageMenuItemView.swift in Sources */,
 				87BFC83320440FDD00A8D167 /* StatusMenuController.swift in Sources */,
 				87BFC825204409CF00A8D167 /* AppDelegate.swift in Sources */,
 			);

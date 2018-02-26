@@ -35,7 +35,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Jnt-Il-cNk"/>
-                <menuItem title="Weather" id="gPx-eG-jcY">
+                <menuItem title="CPU" id="gPx-eG-jcY">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="g3B-Tr-na7"/>
@@ -48,7 +48,7 @@
             </items>
             <point key="canvasLocation" x="138" y="145.5"/>
         </menu>
-        <customView id="2FI-ZJ-gj0" customClass="WeatherView" customModule="LoadIndicator" customModuleProvider="target">
+        <customView id="2FI-ZJ-gj0" customClass="ImageMenuItemView" customModule="LoadIndicator" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="224" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
