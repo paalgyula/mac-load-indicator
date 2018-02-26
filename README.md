@@ -8,3 +8,6 @@ If you like it, star it and leave some feedback, change request, bugz, and I'll 
 
 Thanks for visiting!
 
+![Screenshot 1](https://raw.githubusercontent.com/paalgyula/mac-load-indicator/master/sshot-1.png)
+
+![Screenshot 2](https://raw.githubusercontent.com/paalgyula/mac-load-indicator/master/sshot-2.png)
