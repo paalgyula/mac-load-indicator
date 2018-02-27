@@ -61,7 +61,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         }
         createGraphImage()
         
-        weatherView.cityLabel.stringValue = "Current load: \(usage)"
+        weatherView.cityLabel.stringValue = NSString(format: "Current CPU load: %.2f%%", usage) as String
     }
     
     func createGraphImage() {
