@@ -12,12 +12,8 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LoadIndicator" customModuleProvider="target">
-            <connections>
-                <outlet property="statusMenu" destination="fWr-T8-sHl" id="FDM-rb-dhr"/>
-            </connections>
-        </customObject>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LoadIndicator" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="LQD-ag-QNg" customClass="StatusMenuController" customModule="LoadIndicator" customModuleProvider="target">
             <connections>
@@ -26,12 +22,19 @@
                 <outlet property="weatherView" destination="2FI-ZJ-gj0" id="mUB-Zu-8AO"/>
             </connections>
         </customObject>
+        <customObject id="mAH-1H-gq8" customClass="PreferencesWindow" customModule="LoadIndicator" customModuleProvider="target"/>
         <menu id="fWr-T8-sHl">
             <items>
                 <menuItem title="Update" id="kJJ-W1-qgp">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="updateClicked:" target="LQD-ag-QNg" id="xIS-tl-tYc"/>
+                        <action selector="updateClicked:" target="LQD-ag-QNg" id="mdI-IH-CrQ"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Preferences" id="6mR-5h-H8i">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="preferencesClicked:" target="LQD-ag-QNg" id="3Hj-wH-Lwn"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Jnt-Il-cNk"/>
@@ -83,5 +86,49 @@
             </connections>
             <point key="canvasLocation" x="-209" y="108"/>
         </customView>
+        <menuItem title="Application" id="d2J-Pn-WA0">
+            <modifierMask key="keyEquivalentModifierMask"/>
+            <menu key="submenu" title="Application" id="tvg-Yj-ktA">
+                <items>
+                    <menuItem title="About Application" id="zmJ-gy-2jr">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <connections>
+                            <action selector="orderFrontStandardAboutPanel:" target="-1" id="igU-5b-phG"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="QDc-Ht-icT"/>
+                    <menuItem title="Preferences…" keyEquivalent="," id="bU8-Gg-VMg"/>
+                    <menuItem isSeparatorItem="YES" id="aeL-5g-E8n"/>
+                    <menuItem title="Services" id="Agu-2a-Q1s">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <menu key="submenu" title="Services" systemMenu="services" id="KtV-ri-t8G"/>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="oOX-BH-RaH"/>
+                    <menuItem title="Hide Application" keyEquivalent="h" id="wY6-Ps-maB">
+                        <connections>
+                            <action selector="hide:" target="-1" id="X4t-re-V7l"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem title="Hide Others" keyEquivalent="h" id="EaE-ne-bzP">
+                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        <connections>
+                            <action selector="hideOtherApplications:" target="-1" id="Yf9-8X-EdK"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem title="Show All" id="5ld-nL-97G">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <connections>
+                            <action selector="unhideAllApplications:" target="-1" id="vVj-Eu-Iex"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="RfC-a9-aa2"/>
+                    <menuItem title="Quit Application" keyEquivalent="q" id="KlF-fq-4I3">
+                        <connections>
+                            <action selector="terminate:" target="-1" id="5r0-Nh-Kai"/>
+                        </connections>
+                    </menuItem>
+                </items>
+            </menu>
+        </menuItem>
     </objects>
 </document>

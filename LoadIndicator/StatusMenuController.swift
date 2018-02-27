@@ -9,10 +9,11 @@
 import Cocoa
 import AppKit
 
-class StatusMenuController: NSObject {
+class StatusMenuController: NSObject, PreferencesWindowDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var weatherView: ImageMenuItemView!
     
+    var preferencesWindow: PreferencesWindow!
     var weatherMenuItem: NSMenuItem!
     
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -22,18 +23,24 @@ class StatusMenuController: NSObject {
     var loadPrevious = host_cpu_load_info()
     var loadStack : [Double] = []
     
+    // Variables for graph
+    var graphwidth : Int = 80
+    var showlogo : Bool = true
+    
     deinit {
         self.timer?.invalidate()
     }
     
     override func awakeFromNib() {
-        statusItem.title = ""
-        statusItem.menu = statusMenu
+        self.loadConfig()
         
         let icon = NSImage(named: NSImage.Name(rawValue: "piLogo"))
-        icon?.isTemplate = false
+        icon?.isTemplate = true
         
         weatherView.imageView.image = NSImage(named: NSImage.Name("AppIcon"))
+        
+        statusItem.title = ""
+        statusItem.menu = statusMenu
         
         weatherMenuItem = statusMenu.item(withTitle: "CPU")
         if weatherMenuItem != nil {
@@ -59,37 +66,58 @@ class StatusMenuController: NSObject {
     
     func createGraphImage() {
         let graphHeight : CGFloat = 22
-        let graphWidth : CGFloat = 80
+        let graphWidth : CGFloat = CGFloat(graphwidth)
+        
+        let font = NSFont(name: "Menlo", size: 10.0)
+        let baselineAdjust = 1.0
+        let attrsDictionary =  [
+            NSAttributedStringKey.font:font,
+            NSAttributedStringKey.baselineOffset:baselineAdjust] as [NSAttributedStringKey : AnyObject]
+
         
         let graph = NSImage(size: NSSize(width: graphWidth, height: graphHeight))
         graph.lockFocus()
         
-        piIcon?.draw(in: NSRect(x: 0, y: 3, width: 16, height: 16))
+        if (self.showlogo) {
+            piIcon?.draw(in: NSRect(x: 0, y: 3, width: 16, height: 16))
+        }
         
         let foregroundColor = NSColor.black
         foregroundColor.setFill()
         
-        for i in 0...(80 - 16 - 2) {
+        for i in 0...(self.showlogo ? (self.graphwidth - 16 - 2) : self.graphwidth ) {
             if i > loadStack.count - 1 {
                 continue
             }
             
             let height = 22 / 100 * loadStack[i];
             //NSLog("Drawing height: \(height)");
-            NSMakeRect(CGFloat(80 - i - 1), 0, CGFloat(1), CGFloat(height)).fill()
+            NSMakeRect(
+                CGFloat(self.graphwidth - i - 1),
+                0,
+                CGFloat(1),
+                CGFloat(height)
+            ).fill()
         }
         
         NSColor.white.setStroke()
         if ( loadStack.count > 0 ) {
             let percent = NSString(format: "%.0f%%", loadStack[0])
-            let textRect = NSRect(x: 18, y: 0, width: CGFloat(80-18), height: 22)
-            percent.draw(in: textRect)
+            
+            let textRect = NSRect(
+                x: showlogo ? 18 : 0,
+                y: 0,
+                width: CGFloat(self.showlogo ? self.graphwidth-18 : self.graphwidth),
+                height: 22)
+            
+            percent.draw(in: textRect, withAttributes: attrsDictionary)
         }
         
         // Teszt vonal
         // NSMakeRect(CGFloat(18), 0, CGFloat(1), CGFloat(10)).fill()
         
         graph.unlockFocus()
+        graph.isTemplate = true
         self.statusItem.image = graph
     }
     
@@ -132,12 +160,34 @@ class StatusMenuController: NSObject {
         return (sys, usr, idle, nice)
     }
     
+    func preferencesDidUpdate() {
+        //updateWeather()
+        self.loadConfig()
+    }
+    
+    private func loadConfig() {
+        let defaults = UserDefaults.standard
+        self.graphwidth = defaults.integer(forKey: "graphwidth") ?? 80
+        self.showlogo = defaults.bool(forKey: "showlogo") ?? true;
+    }
+    
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
     
-    @IBAction func updateClicked(_ sender: Any) {
+    @IBAction func updateClicked(_ sender: NSMenuItem) {
         NSLog("Manual update called")
         update()
+    }
+    
+    @IBAction func preferencesClicked(_ sender: Any) {
+        NSLog("Preferences called, showing...")
+        
+        if (preferencesWindow == nil) {
+            preferencesWindow = PreferencesWindow(windowNibName: NSNib.Name(rawValue: "PreferencesWindow"))
+        }
+        
+        preferencesWindow.delegate = self
+        preferencesWindow.showWindow(nil)
     }
 }
