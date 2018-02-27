@@ -12,31 +12,33 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LoadIndicator" customModuleProvider="target">
-            <connections>
-                <outlet property="statusMenu" destination="fWr-T8-sHl" id="FDM-rb-dhr"/>
-            </connections>
-        </customObject>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="LoadIndicator" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="LQD-ag-QNg" customClass="StatusMenuController" customModule="LoadIndicator" customModuleProvider="target">
             <connections>
                 <outlet property="statusMenu" destination="fWr-T8-sHl" id="8qg-Ly-I10"/>
-                <outlet property="updateClicked" destination="kJJ-W1-qgp" id="EZb-vV-W5o"/>
                 <outlet property="weatherView" destination="2FI-ZJ-gj0" id="mUB-Zu-8AO"/>
             </connections>
         </customObject>
+        <customObject id="mAH-1H-gq8" customClass="PreferencesWindow" customModule="LoadIndicator" customModuleProvider="target"/>
         <menu id="fWr-T8-sHl">
             <items>
-                <menuItem title="Update" id="kJJ-W1-qgp">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="updateClicked:" target="LQD-ag-QNg" id="xIS-tl-tYc"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="Jnt-Il-cNk"/>
                 <menuItem title="CPU" id="gPx-eG-jcY">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Powered by paalgyula" enabled="NO" id="eb1-xS-TPV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="Jnt-Il-cNk"/>
+                <menuItem title="TODO: About" hidden="YES" id="Pa0-LR-Otb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Preferences" id="6mR-5h-H8i">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="preferencesClicked:" target="LQD-ag-QNg" id="3Hj-wH-Lwn"/>
+                    </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="g3B-Tr-na7"/>
                 <menuItem title="Quit" id="40U-AD-wVi">
@@ -46,42 +48,89 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="138" y="145.5"/>
+            <point key="canvasLocation" x="-168" y="249"/>
         </menu>
         <customView id="2FI-ZJ-gj0" customClass="ImageMenuItemView" customModule="LoadIndicator" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="224" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="306" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ia-eG-ZF4">
-                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="TRe-5W-r11"/>
-                </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Wi-ln-9hq">
-                    <rect key="frame" x="56" y="27" width="170" height="17"/>
+                    <rect key="frame" x="76" y="27" width="212" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="City" id="mEZ-as-wmG">
-                        <font key="font" metaFont="system"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Percent of usage" id="mEZ-as-wmG">
+                        <font key="font" metaFont="systemBold"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H18-1W-YMX">
-                    <rect key="frame" x="56" y="7" width="170" height="17"/>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H18-1W-YMX">
+                    <rect key="frame" x="76" y="7" width="212" height="17"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Temperature" id="tbG-4x-ceY">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="TODO: Temperature" id="tbG-4x-ceY">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ia-eG-ZF4">
+                    <rect key="frame" x="20" y="0.0" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                    <imageCell key="cell" scrollable="YES" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSCaution" id="TRe-5W-r11"/>
+                </imageView>
             </subviews>
             <connections>
                 <outlet property="cityLabel" destination="7Wi-ln-9hq" id="AW2-Vy-zm7"/>
                 <outlet property="imageView" destination="5ia-eG-ZF4" id="sB0-Cd-xXs"/>
                 <outlet property="tempLabel" destination="H18-1W-YMX" id="8ct-PV-soR"/>
             </connections>
-            <point key="canvasLocation" x="-209" y="108"/>
+            <point key="canvasLocation" x="-168" y="108"/>
         </customView>
+        <menuItem title="Application" id="d2J-Pn-WA0">
+            <modifierMask key="keyEquivalentModifierMask"/>
+            <menu key="submenu" title="Application" id="tvg-Yj-ktA">
+                <items>
+                    <menuItem title="About Application" id="zmJ-gy-2jr">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <connections>
+                            <action selector="orderFrontStandardAboutPanel:" target="-1" id="igU-5b-phG"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="QDc-Ht-icT"/>
+                    <menuItem title="Preferences…" keyEquivalent="," id="bU8-Gg-VMg"/>
+                    <menuItem isSeparatorItem="YES" id="aeL-5g-E8n"/>
+                    <menuItem title="Services" id="Agu-2a-Q1s">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <menu key="submenu" title="Services" systemMenu="services" id="KtV-ri-t8G"/>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="oOX-BH-RaH"/>
+                    <menuItem title="Hide Application" keyEquivalent="h" id="wY6-Ps-maB">
+                        <connections>
+                            <action selector="hide:" target="-1" id="X4t-re-V7l"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem title="Hide Others" keyEquivalent="h" id="EaE-ne-bzP">
+                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        <connections>
+                            <action selector="hideOtherApplications:" target="-1" id="Yf9-8X-EdK"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem title="Show All" id="5ld-nL-97G">
+                        <modifierMask key="keyEquivalentModifierMask"/>
+                        <connections>
+                            <action selector="unhideAllApplications:" target="-1" id="vVj-Eu-Iex"/>
+                        </connections>
+                    </menuItem>
+                    <menuItem isSeparatorItem="YES" id="RfC-a9-aa2"/>
+                    <menuItem title="Quit Application" keyEquivalent="q" id="KlF-fq-4I3">
+                        <connections>
+                            <action selector="terminate:" target="-1" id="5r0-Nh-Kai"/>
+                        </connections>
+                    </menuItem>
+                </items>
+            </menu>
+        </menuItem>
     </objects>
+    <resources>
+        <image name="NSCaution" width="32" height="32"/>
+    </resources>
 </document>
