@@ -70,7 +70,8 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
         
         let font = NSFont(name: "Menlo", size: 10.0)
         let baselineAdjust = 1.0
-        let attrsDictionary =  [
+        
+        var attrsDictionary =  [
             NSAttributedStringKey.font:font,
             NSAttributedStringKey.baselineOffset:baselineAdjust] as [NSAttributedStringKey : AnyObject]
 
@@ -82,9 +83,10 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             piIcon?.draw(in: NSRect(x: 0, y: 3, width: 16, height: 16))
         }
         
-        let foregroundColor = NSColor.black
-        foregroundColor.setFill()
+//        var foregroundColor = NSColor.black
+//        foregroundColor.setFill()
         
+        NSColor.white.set()
         for i in 0...(self.showlogo ? (self.graphwidth - 16 - 2) : self.graphwidth ) {
             if i > loadStack.count - 1 {
                 continue
@@ -100,7 +102,7 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
             ).fill()
         }
         
-        NSColor.white.setStroke()
+        // Text with shadow drawing
         if ( loadStack.count > 0 ) {
             let percent = NSString(format: "%.0f%%", loadStack[0])
             
@@ -110,11 +112,19 @@ class StatusMenuController: NSObject, PreferencesWindowDelegate {
                 width: CGFloat(self.showlogo ? self.graphwidth-18 : self.graphwidth),
                 height: 22)
             
+            let textShadow = NSShadow();
+            textShadow.shadowColor = NSColor.black;
+            textShadow.shadowBlurRadius = 1.2;
+            textShadow.shadowOffset = NSMakeSize(1,-1);
+            
+            attrsDictionary[NSAttributedStringKey.foregroundColor] = NSColor.white;
+            attrsDictionary[NSAttributedStringKey.shadow] = textShadow;
             percent.draw(in: textRect, withAttributes: attrsDictionary)
         }
         
         // Teszt vonal
-        // NSMakeRect(CGFloat(18), 0, CGFloat(1), CGFloat(10)).fill()
+//        NSColor.white.set()
+//        NSMakeRect(CGFloat(18), 0, CGFloat(1), CGFloat(10)).fill()
         
         graph.unlockFocus()
         graph.isTemplate = true
