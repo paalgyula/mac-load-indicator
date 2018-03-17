@@ -11,6 +11,6 @@ import AppKit
 
 class ImageMenuItemView: NSView {
     @IBOutlet weak var imageView: NSImageView!
-    @IBOutlet weak var cityLabel: NSTextField!
+    @IBOutlet weak var cpuLoadLabel: NSTextField!
     @IBOutlet weak var tempLabel: NSTextField!
 }

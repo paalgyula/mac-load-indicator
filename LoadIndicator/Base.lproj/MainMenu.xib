@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,8 +16,8 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="LQD-ag-QNg" customClass="StatusMenuController" customModule="LoadIndicator" customModuleProvider="target">
             <connections>
+                <outlet property="currentUsageMenuItem" destination="2FI-ZJ-gj0" id="mUB-Zu-8AO"/>
                 <outlet property="statusMenu" destination="fWr-T8-sHl" id="8qg-Ly-I10"/>
-                <outlet property="weatherView" destination="2FI-ZJ-gj0" id="mUB-Zu-8AO"/>
             </connections>
         </customObject>
         <customObject id="mAH-1H-gq8" customClass="PreferencesWindow" customModule="LoadIndicator" customModuleProvider="target"/>
@@ -79,7 +78,7 @@
                 </imageView>
             </subviews>
             <connections>
-                <outlet property="cityLabel" destination="7Wi-ln-9hq" id="AW2-Vy-zm7"/>
+                <outlet property="cpuLoadLabel" destination="7Wi-ln-9hq" id="AW2-Vy-zm7"/>
                 <outlet property="imageView" destination="5ia-eG-ZF4" id="sB0-Cd-xXs"/>
                 <outlet property="tempLabel" destination="H18-1W-YMX" id="8ct-PV-soR"/>
             </connections>

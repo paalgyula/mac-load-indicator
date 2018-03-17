@@ -24,10 +24,10 @@ class PreferencesWindow: NSWindowController, NSWindowDelegate {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        let showLogo = defaults.bool(forKey: "showlogo") ;
+        IndicatorConfig.loadConfig()
         
-        widthTextField.integerValue = defaults.integer(forKey: "graphwidth")
-        showLogoButton.state = showLogo ? NSButton.StateValue.on : NSButton.StateValue.off
+        widthTextField.integerValue = IndicatorConfig.graphwidth
+        showLogoButton.state = IndicatorConfig.showlogo ? NSButton.StateValue.on : NSButton.StateValue.off
         
         self.window?.center()
         self.window?.makeKeyAndOrderFront(nil)
@@ -40,8 +40,8 @@ class PreferencesWindow: NSWindowController, NSWindowDelegate {
     
     func windowWillClose(_ notification: Notification) {
         // Saving variables
-        defaults.setValue(widthTextField.integerValue, forKey: "graphwidth")
-        defaults.setValue(showLogoButton.state.rawValue > 0 ? true : false, forKey: "showlogo")
+        IndicatorConfig.graphwidth = widthTextField.integerValue
+        IndicatorConfig.showlogo = showLogoButton.state.rawValue > 0 ? true : false
         
         delegate?.preferencesDidUpdate()
     }

@@ -14,6 +14,7 @@
 		87BFC83920441FD200A8D167 /* ImageMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC83820441FD200A8D167 /* ImageMenuItemView.swift */; };
 		87BFC84C2044DF6700A8D167 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BFC84B2044DF6700A8D167 /* PreferencesWindow.swift */; };
 		87BFC84E2044E3BA00A8D167 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87BFC84D2044E3BA00A8D167 /* PreferencesWindow.xib */; };
+		87E63430205AF50C005DB300 /* IndicatorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E6342F205AF50C005DB300 /* IndicatorConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		87BFC83B2044554C00A8D167 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		87BFC84B2044DF6700A8D167 /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		87BFC84D2044E3BA00A8D167 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		87E6342F205AF50C005DB300 /* IndicatorConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		87BFC823204409CF00A8D167 /* LoadIndicator */ = {
 			isa = PBXGroup;
 			children = (
+				87E6342F205AF50C005DB300 /* IndicatorConfig.swift */,
 				87BFC83820441FD200A8D167 /* ImageMenuItemView.swift */,
 				87BFC824204409CF00A8D167 /* AppDelegate.swift */,
 				87BFC826204409D000A8D167 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				87BFC84C2044DF6700A8D167 /* PreferencesWindow.swift in Sources */,
 				87BFC83920441FD200A8D167 /* ImageMenuItemView.swift in Sources */,
+				87E63430205AF50C005DB300 /* IndicatorConfig.swift in Sources */,
 				87BFC83320440FDD00A8D167 /* StatusMenuController.swift in Sources */,
 				87BFC825204409CF00A8D167 /* AppDelegate.swift in Sources */,
 			);
